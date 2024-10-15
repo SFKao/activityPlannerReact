@@ -66,6 +66,7 @@ export const login = (usernameOrEmail, pass) => {
   .then(response=>{
     localStorage.setItem('accessToken', response.data.token)
     localStorage.setItem('refreshToken', response.data.refreshToken)
+    window.location.href="/"
   })
 
 };
