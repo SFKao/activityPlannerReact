@@ -1,39 +1,26 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
-import { useState } from 'react';
-import {login} from './component/axios/axiosI.js'
-import HolaMundo from './component/holaMundo/HolaMundo.js';
+import "bootstrap/dist/js/bootstrap.js"
+import ActividadesViewer from './component/actividadesViewer/ActividadesViewer.js';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import LoginFragment from './component/loginFragment/LoginFragment.js';
+import Header from './component/header/Header.js';
 
 function App() {
 
-  const handleLogin = e => {
-    e.preventDefault()
-
-    login(usernameOrEmail, pass);
-  }
-
-  const [usernameOrEmail, setusernameOrEmail] = useState("test");
-  const [pass, setpass] = useState("pass");
-
   return (
-    <div className="App">
-      <header>
-        <p>
-            Hola Mundo!
-        </p>
-      </header>
-      <form action='' onSubmit={handleLogin}>
-        <input name='usernameOrEmail' value={usernameOrEmail} onChange={e => setusernameOrEmail(e.target.value)}/>
-        <input name='pass' type='password' value={pass} onChange={e => setpass(e.target.value)}/>
-        <button type='submit'>
-          Submit
-        </button>
-      </form>
-      <div>
-        <HolaMundo/>
+    <BrowserRouter>
+      <div className="App">
+        <Header/>
+        <Routes>
+          <Route path='/login' element={<LoginFragment/>}/>
+          <Route path='/' element={<ActividadesViewer/>}/>
+          <Route path='*' element={<h1>404</h1>}/>
+        </Routes>
       </div>
-    </div>
+    </BrowserRouter>
   );
 }
 
 export default App;
+

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import ActividadCard from "../actividadCard/ActividadCard.js";
 
 
-const HolaMundo = () => {
+const ActividadesViewer = () => {
 
     const [actividades, setActividades] = useState([]);
 
@@ -32,4 +32,4 @@ const HolaMundo = () => {
     </div>    
 }
 
-export default HolaMundo;
+export default ActividadesViewer;
