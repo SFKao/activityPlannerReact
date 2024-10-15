@@ -1,4 +1,4 @@
-import { Card, CardGroup } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import { actividadesRequest } from '../axios/axiosI.js'
 import { useEffect, useState } from "react";
 
@@ -9,27 +9,32 @@ const HolaMundo = () => {
 
     useEffect(() => {
         return async () => {        
-            setActividades(await actividadesRequest())
+            if(localStorage.getItem("accessToken"))
+                setActividades(await actividadesRequest())
+            else
+                setActividades([])
         };
     }, []);
 
     return <div>
         <h3>Lista de actividades</h3>
-        <CardGroup>
+        <Row md={4}>
         {
-            actividades.map(actividad => {
+            actividades.map((actividad, idx) => {
                 return (
-                <Card style={{width:"18em"}} key={actividad.id}>
-                    {actividad.imageURL ? <Card.Img src={actividad.imageURL}/> : ""}
-                    <Card.Body>
-                        <Card.Title>{actividad.nombre}</Card.Title>
-                        <Card.Text>{actividad.descripcion}</Card.Text>
-                        <Card.Footer>{actividad.minJugadores} - {actividad.maxJugadores !== -1 ? actividad.maxJugadores : "infinitos"} jugadores</Card.Footer>
-                    </Card.Body>
-                </Card>)
+                    <Col key={idx}>
+                        <Card style={{width:"18rem", margin:"2rem", height:"24rem"}} key={actividad.id}>
+                            {actividad.imageURL ? <Card.Img src={actividad.imageURL}/> : ""}
+                            <Card.Body style={{height:"100%",display:"flex",flexDirection:"column", justifyContent:"space-between"}}>
+                                <Card.Title>{actividad.nombre}</Card.Title>
+                                <Card.Text>{actividad.descripcion}</Card.Text>
+                                <Card.Footer>{actividad.minJugadores} - {actividad.maxJugadores !== -1 ? actividad.maxJugadores : "infinitos"} jugadores</Card.Footer>
+                            </Card.Body>
+                        </Card>
+                    </Col>)
             })
         }
-        </CardGroup>
+        </Row>
     </div>    
 }
 
